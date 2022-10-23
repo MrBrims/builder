@@ -1,4 +1,4 @@
-<h2>How to use OptimizedHTML 5</h2>
+<h2>How to use Builder</h2>
 
 <p>Clone into the current folder and remove all unnecessary (one command):</p>
 
