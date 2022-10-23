@@ -1,0 +1,35 @@
+// GENERAL PROJECT STYLES
+
+html
+  scroll-behavior: smooth
+
+body.--lock
+  overflow: hidden
+
+.wrapper
+  display: flex
+  flex-direction: column
+  width: 100%
+  min-height: 100vh
+  justify-content: space-between
+
+.container
+  max-width: 1230px
+  padding: 0 15px
+  margin: 0 auto
+
+.section
+  padding: 40px 0
+
+.title
+  font-size: 40px
+
+.iti
+  width: 100%
+
+.iti__flag
+  background-image: url("../images/dist/flags.webp")
+
+@media (-webkit-min-device-pixel-ratio: 2),        (min-resolution: 192dpi)
+  .iti__flag
+    background-image: url("../images/dist/flags@2x.webp")

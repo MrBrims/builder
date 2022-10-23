@@ -1,0 +1,26 @@
+.slider {
+  position: relative;
+  user-select: none;
+  &__body {
+  }
+  &__wrapper {
+  }
+  &__slide {
+  }
+  &__link {
+    display: block;
+  }
+  &__img {
+  }
+  &__next,
+  &__prev {
+    color: #fff;
+    cursor: pointer;
+  }
+  &__next {
+  }
+  &__prev {
+  }
+  &__nav {
+  }
+}
