@@ -23,6 +23,7 @@ import cssnano       from 'cssnano'
 import autoprefixer  from 'autoprefixer'
 import imagemin      from 'gulp-imagemin'
 import webp          from 'gulp-webp'
+import ttf2woff2     from 'gulp-ttf2woff2'
 import changed       from 'gulp-changed'
 import concat        from 'gulp-concat'
 import rsync         from 'gulp-rsync'
@@ -96,12 +97,26 @@ function styles() {
 }
 
 function images() {
-	return src(['app/images/src/**/*'])
+  return src(['app/images/src/**/*'])
 		.pipe(changed('app/images/dist'))
 		.pipe(imagemin())
-    .pipe(webp('app/images/src/**/*.jpg'))
 		.pipe(dest('app/images/dist'))
 		.pipe(browserSync.stream())
+}
+
+function imagesWebp() {
+  return src(['app/images/dist/**/*', '!app/images/dist/**/*.svg', '!app/images/dist/webp/**/*.*', '!app/images/dist/webp/**'])
+    .pipe(webp())
+    .pipe(dest('app/images/dist/webp'))
+    .pipe(browserSync.stream())
+}
+
+function fontWoff() {
+  return src(['app/fonts/src/**/*.ttf'])
+    .pipe(changed('app/fonts/dist'))
+    .pipe(ttf2woff2())
+    .pipe(dest('app/fonts/dist'))
+    .pipe(browserSync.stream())
 }
 
 function buildcopy() {
@@ -109,7 +124,8 @@ function buildcopy() {
 		'{app/js,app/css}/*.min.*',
 		'app/images/**/*.*',
 		'!app/images/src/**/*',
-		'app/fonts/**/*'
+		'app/fonts/**/*.*',
+    '!app/fonts/src/**/*',
 	], { base: 'app/' })
 	.pipe(dest('dist'))
 }
@@ -144,11 +160,13 @@ function startwatch() {
 	watch(`app/styles/${preprocessor}/**/*`, { usePolling: true }, styles)
 	watch(['app/js/**/*.js', '!app/js/**/*.min.js'], { usePolling: true }, scripts)
 	watch('app/images/src/**/*', { usePolling: true }, images)
+  watch(['app/images/dist/**/*', '!app/images/dist/webp/**/*.*'], { usePolling: true }, imagesWebp)
+  watch('app/fonts/src/*', { usePolling: true }, fontWoff)
 	watch(`app/**/*.{${fileswatch}}`, { usePolling: true }).on('change', browserSync.reload)
 }
 
-export { scripts, styles, webp, images, deploy }
-export let assets = series(scripts, styles, images)
-export let build = series(cleandist, images, scripts, styles, buildcopy, buildhtml)
+export { scripts, styles, images, imagesWebp, fontWoff, deploy }
+export let assets = series(scripts, styles, images, imagesWebp, fontWoff)
+export let build = series(cleandist, images, fontWoff, scripts, styles, buildcopy, buildhtml)
 
-export default series(scripts, styles, images, parallel(browsersync, startwatch))
+export default series(scripts, styles, images, imagesWebp, fontWoff, parallel(browsersync, startwatch))

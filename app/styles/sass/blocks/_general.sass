@@ -24,12 +24,51 @@ body.--lock
 .title
   font-size: 40px
 
+@keyframes rotate-stub
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
+
+.image-stub,
+.map-lazy
+  position: relative
+  min-height: 60px
+  &::before
+    content: ""
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 30px
+    height: 30px
+    border-radius: 50%
+    background-image: url(../images/dist/icons/refresh.svg)
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: contain
+    animation: rotate-stub 3s infinite
+    z-index: 5
+
+.image-stub img
+  position: relative
+  z-index: 10
+
+.map-lazy.--loaded::before
+  display: none
+
 .iti
   width: 100%
 
 .iti__flag
-  background-image: url("../images/dist/flags.webp")
+  background-image: url("../images/dist/webp/flags.webp")
 
-@media (-webkit-min-device-pixel-ratio: 2),        (min-resolution: 192dpi)
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
   .iti__flag
-    background-image: url("../images/dist/flags@2x.webp")
+    background-image: url("../images/dist/webp/flags@2x.webp")
+
+.slider__wrapper
+  align-items: stretch
+
+.slider__slide
+  height: auto
