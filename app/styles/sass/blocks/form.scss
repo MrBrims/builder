@@ -3,6 +3,7 @@
   user-select: none;
   &__box {
     margin-bottom: 30px;
+    position: relative;
   }
   &__label {
     display: block;
@@ -36,11 +37,7 @@
     align-items: center;
   }
   &__checkbox-custom {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+    @include check-hidden;
     &:checked + .form__checkbox-style {
       background-color: $accent;
       border: none;

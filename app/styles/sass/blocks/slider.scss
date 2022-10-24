@@ -2,6 +2,7 @@
   position: relative;
   user-select: none;
   &__body {
+    height: 100%;
   }
   &__wrapper {
   }
@@ -9,6 +10,9 @@
   }
   &__link {
     display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
   &__img {
   }
