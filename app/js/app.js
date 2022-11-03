@@ -11,6 +11,7 @@ import { inputDateCustom } from '~/app/libs/_inputDateCustom.js'
 import { selectCustom } from '~/app/libs/_selectCustom.js'
 import { lazyLoad } from '~/app/libs/_lazyLoad.js'
 import { adminIndentWp } from '~/app/libs/_adminIndentWp.js'
+import { mailerForm } from '~/app/libs/_mailerForm.js'
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -49,5 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Слайдер
   swiperMudules();
+
+  // Отправка формы
+  mailerForm();
   
 })
